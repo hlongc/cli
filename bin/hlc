@@ -1,0 +1,49 @@
+#! /usr/bin/env node
+
+const program = require('commander')
+const chalk = require('chalk')
+
+// 解析参数
+const cleanArgs = cmd => {
+  const args = {}
+  cmd.options.forEach(option => {
+    const key = option.long.slice(2)
+    if (cmd[key]) args[key] = true
+  })
+  return args
+}
+
+// 创建命令
+program
+  .command('create <app-name>')
+  .description('create a new application')
+  .option('-f, --force', 'overwrite directory if it exist')
+  .action((appName, cmd) => {
+    require('../lib/create')(appName, cleanArgs(cmd))
+  })
+
+program
+  .command('config [value]') // []表示参数可选
+  .description('inspect and modify config options')
+  .option('-g, --get <key>', 'get value of key from config')
+  .option('-s, --set <key> <value>', 'set value of key')
+  .option('-d, --delete <key>', 'delete ths key from config')
+  .action((value, cmd) => {
+    // input: hlc-cli config --set a 1
+    // output: 1 { set: true }
+    console.log(value, cleanArgs(cmd))
+  })
+
+program
+  .version(`hlc-cli@${require('../package.json').version}`)
+  .usage(`<command> [options]`)
+
+// 高亮提示信息
+program.on('--help', () => {
+  console.log()
+  // chalk相当于粉笔，给字体上色
+  console.log(`Run ${chalk.cyan('hlc-cli <command> --help')} inspect detail`)
+  console.log()
+})
+
+program.parse(process.argv)

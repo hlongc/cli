@@ -1,0 +1,29 @@
+{
+  "name": "hlc-cli",
+  "version": "1.0.0",
+  "description": "a cli",
+  "main": "index.js",
+  "license": "MIT",
+  "bin": {
+    "hlc": "./bin/hlc",
+    "hlc-cli": "./bin/hlc"
+  },
+  "keywords": [
+    "cli",
+    "hlc",
+    "hlongc"
+  ],
+  "author": {
+    "name": "hlongc",
+    "email": "hlc_it@163.com"
+  },
+  "dependencies": {
+    "axios": "^0.20.0",
+    "chalk": "^4.1.0",
+    "commander": "^6.0.0",
+    "download-git-repo": "^3.0.2",
+    "fs-extra": "^9.0.1",
+    "inquirer": "^7.3.3",
+    "ora": "^5.0.0"
+  }
+}
